@@ -1,0 +1,23 @@
+{
+  "name": "metalsmith-jsonld",
+  "version": "0.0.1",
+  "description": "Takes properties from your front-matter and turns them into a JSON-LD object for insertion in <head>.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/kalabox/json-ld"
+  },
+  "keywords": [
+    "Metalsmith",
+    "JSON-LD",
+    "SEO"
+  ],
+  "author": "Alec Reynolds",
+  "license": "ISC",
+  "dependencies": {
+    "to-function": "^2.0.6"
+  }
+}
