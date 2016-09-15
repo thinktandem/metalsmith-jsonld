@@ -10,7 +10,6 @@ var toFn = require('to-function');
 // instead of forcing people to fill that in everytime they write an article.
 function plugin(options){
   return function(files, metalsmith, done){
-    console.log('running jsonld', metalsmith.metadata());
     Object.keys(files).forEach(function(file){
       var data = files[file];
       var jsonLdOutput = [];
@@ -21,39 +20,40 @@ function plugin(options){
       }
 
       // Set json-ld objects defined for collections.
-      //var collectionJsonLdObjects = collectionDefaults(data, metalsmith, options);
-      //jsonLdOutput.concat(collectionJsonLdObjects);
+      var collectionJsonLdObjects = collectionDefaults(data, metalsmith, options);
+      jsonLdOutput = jsonLdOutput.concat(collectionJsonLdObjects);
 
       // Set json-ld objects defined in frontmatter.
       if (data.jsonld) {
         Object.keys(data.jsonld).forEach(function(key) {
           jsonLdOutput.push(data.jsonld[key]);
         });
-        files[file].jsonld = jsonLdOutput;
-        data.jsonld = jsonLdOutput;
-        files[file].jsonLdOutput = jsonLdOutput;
-        if (file === 'about/index.html') {
-          console.log(jsonLdOutput);
-        }
       }
-      done();
+      data.jsonld = jsonLdOutput;
     });
+    done();
   };
 }
 
 function fillJsonLdValues(properties, data) {
   var jsonLdOutput = {};
   Object.keys(properties).forEach(function(key) {
-    if (data[properties.key]) {
-      if (isArray(data[properties.key])) {
-        // Recurse if there's a nested structure.
-        jsonLdObject.key = fillJsonLdValues(properties.key, data);
-      } else {
-        jsonLdObject.key = data[properties.key];
-      }
+    // Take care of schema items, which have literal provided defaults.
+    if (key.indexOf('@') !== -1) {
+      jsonLdOutput[key] = properties[key];
+    }
+
+    // Recurse if there's a nested structure.
+    if (typeof properties[key] === 'object') {
+      jsonLdOutput[key] = fillJsonLdValues(properties[key], data);
+    }
+
+    // Insert information from corresponding frontmatter tags.
+    if (data[properties[key]]) {
+      jsonLdOutput[key] = data[properties[key]];
     }
   });
-  return jsonLdObject;
+  return jsonLdOutput;
 }
 
 function collectionDefaults(data, metalsmith, options) {
@@ -63,12 +63,10 @@ function collectionDefaults(data, metalsmith, options) {
   // Iterate over all the paginate names and match with collections.
   var complete = keys.every(function(name) {
     var collection;
-
     try {
-      collection = toFn(name)(metadata);
+      collection = metadata.collections[name];
     } catch (error) {}
 
-    console.log(collection, options);
     // If there is a matching collection, then iterate through the
     // jsonLdObjects we want to attach default data for.
     if (collection) {
