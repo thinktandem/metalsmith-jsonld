@@ -38,11 +38,6 @@ function plugin(options){
 function fillJsonLdValues(properties, data) {
   var jsonLdOutput = {};
   Object.keys(properties).forEach(function(key) {
-    // Take care of schema items, which have literal provided defaults.
-    if (key.indexOf('@') !== -1) {
-      jsonLdOutput[key] = properties[key];
-    }
-
     // Recurse if there's a nested structure.
     if (typeof properties[key] === 'object') {
       jsonLdOutput[key] = fillJsonLdValues(properties[key], data);
@@ -51,6 +46,9 @@ function fillJsonLdValues(properties, data) {
     // Insert information from corresponding frontmatter tags.
     if (data[properties[key]]) {
       jsonLdOutput[key] = data[properties[key]];
+    } else {
+      // If there is no frontmatter tag, use the literal provided value.
+      jsonLdOutput[key] = properties[key];
     }
   });
   return jsonLdOutput;
