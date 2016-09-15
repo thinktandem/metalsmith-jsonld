@@ -1,6 +1,6 @@
 {
   "name": "metalsmith-jsonld",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "A convenient way to add JSON-LD markup to all the pages on your Metalsmith site.",
   "main": "index.js",
   "scripts": {

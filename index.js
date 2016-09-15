@@ -57,12 +57,16 @@ function fillJsonLdValues(properties, data) {
 function collectionDefaults(data, metalsmith, options) {
   var jsonLdOutput = [];
   var metadata = metalsmith.metadata();
-  var keys = Object.keys(options.collections);
+  if (!Array.isArray(data.collection)) {
+    return jsonLdOutput;
+  }
+  console.log(data.collection);
   // Iterate over all the paginate names and match with collections.
-  var complete = keys.every(function(name) {
+  data.collection.forEach(function(name) {
     var collection;
     try {
-      collection = metadata.collections[name];
+      console.log(options.collections);
+      collection = options.collections[name];
     } catch (error) {}
 
     // If there is a matching collection, then iterate through the
