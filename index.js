@@ -1,7 +1,5 @@
 module.exports = plugin;
 
-var toFn = require('to-function');
-
 // Goals:
 // 1. Default include organization on every page
 // 2. Allow the 

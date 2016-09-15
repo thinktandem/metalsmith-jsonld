@@ -18,6 +18,5 @@
   "author": "Alec Reynolds <alec@kalabox.io> (http://alecreynolds.com)",
   "license": "ISC",
   "dependencies": {
-    "to-function": "^2.0.6"
   }
 }
