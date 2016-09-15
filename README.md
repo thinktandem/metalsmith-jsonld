@@ -1,6 +1,6 @@
-# Metalsmith JSONLD
+# Metalsmith JSON-LD
 
-This module gives you a convenient way to add JSONLD markup to all the pages on your Metalsmith site. There are several different ways you can add JSONLD metadata:
+This module gives you a convenient way to add JSON-LD markup to all the pages on your Metalsmith site. There are several different ways you can add JSON-LD metadata:
 
 ## Setting Global Defaults
 
@@ -32,7 +32,7 @@ Sometimes you'll want to insert the same metadata on EVERY page of your site. To
 
 ## Adding Custom Values to a Specific Page.
 
-Other times, you'll want to specify JSON LD objects for a specific page you're creating. In this case, you can add a "jsonld" property to your frontmatter, and proceed to define an array of JSONLD objects you'd like added to the page. Here's an example of the frontmatter from our About page:
+Other times, you'll want to specify JSON-LD objects for a specific page you're creating. In this case, you can add a "jsonld" property to your frontmatter, and proceed to define an array of JSON-LD objects you'd like added to the page. Here's an example of the frontmatter from our About page:
 
 ```
 ---
@@ -59,7 +59,7 @@ lastmod: 2016-08-03
 
 ## Adding Default Values to Collections
 
-Finally, for many of your collections that have standardized frontmatter data, it's easiest to use the existing frontmatter to fill-in your JSONLD (instead of having to specify the same information all over in custom JSONLD frontmatter). In this case, add a "collections" property to your metalsmith-jsonld config in metalsmith.json that maps your frontmatter data to the JSONLD schema properties.
+Finally, for many of your collections that have standardized frontmatter data, it's easiest to use the existing frontmatter to fill-in your JSON-LD (instead of having to specify the same information all over in custom JSON-LD frontmatter). In this case, add a "collections" property to your metalsmith-jsonld config in metalsmith.json that maps your frontmatter data to the JSON-LD schema properties.
 
 For example, this configuration...
 
@@ -98,7 +98,7 @@ For example, this configuration...
 }
 ```
 
-...will produce the following JSONLD:
+...will produce the following JSON-LD:
 
 ```
 {
@@ -140,4 +140,4 @@ For example, this configuration...
 }
 ```
 
-Between these three options, you have some powerful tools to create rich JSONLD markup and optimize your site's appearance in Google search results!
+Between these three options, you have some powerful tools to create rich JSON-LD markup and optimize your site's appearance in Google search results!
