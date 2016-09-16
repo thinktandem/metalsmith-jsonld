@@ -58,12 +58,10 @@ function collectionDefaults(data, metalsmith, options) {
   if (!Array.isArray(data.collection)) {
     return jsonLdOutput;
   }
-  console.log(data.collection);
   // Iterate over all the paginate names and match with collections.
   data.collection.forEach(function(name) {
     var collection;
     try {
-      console.log(options.collections);
       collection = options.collections[name];
     } catch (error) {}
 
