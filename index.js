@@ -2,7 +2,7 @@ module.exports = plugin;
 
 // Goals:
 // 1. Default include organization on every page
-// 2. Allow the 
+// 2. Allow the
 // 2. Allow defaults for values to be designated for collections, ex: for articles,
 // default fill in the title, type, body, author, etc. from the existing frontmatter
 // instead of forcing people to fill that in everytime they write an article.
@@ -39,6 +39,15 @@ function fillJsonLdValues(properties, data) {
     // Recurse if there's a nested structure.
     if (typeof properties[key] === 'object') {
       jsonLdOutput[key] = fillJsonLdValues(properties[key], data);
+    }
+
+    // Flatten the keywords object to prevent errors.
+    if (properties[key] == 'tags') {
+      var tag = [];
+      data[properties[key]].forEach(function(value, index) {
+        tag.push(value.name);
+      });
+      data[properties[key]] = tag.join();
     }
 
     // Insert information from corresponding frontmatter tags.
